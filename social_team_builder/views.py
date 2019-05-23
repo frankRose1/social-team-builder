@@ -24,7 +24,10 @@ def sign_up(request):
                 password=form.cleaned_data['password1']
             )
             login(request, user)
-            # success message here?
+            messages.success(
+                request,
+                'Your registration was a success! We signed you in too.'
+            )
             return HttpResponseRedirect(reverse('team_builder:home'))
     return render(request, 'social_team_builder/signup.html', {'form': form})
 
@@ -33,4 +36,34 @@ def sign_in(request):
     form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            if form.user_cache is not None:
+                user = form.user_cache
+                if user.is_active:
+                    login(request, user)
+                    messages.success(
+                        request,
+                        'You were successfully signed in.'
+                    )
+                    return HttpResponseRedirect(reverse('team_builder:home'))
+                else:
+                    messages.error(
+                        request,
+                        'This user account has been disabled.'
+                    )
+        else:
+            messages.error(
+                request,
+                'Invalid email or password.'
+            )
     return render(request, 'social_team_builder/signin.html', {'form': form})
+
+
+@login_required
+def sign_out(request):
+    logout(request)
+    messages.success(
+        request,
+        'You were successfully signed out. Come back soon!'
+    )
+    return HttpResponseRedirect(reverse('team_builder:home'))
