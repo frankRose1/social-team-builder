@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block meta_description %}
+  Sign up for an account today to apply for projects and invite others to work on your projects!
+{% endblock %}
+
+{% block content %}
+  <div class="bounds">
+    <div class="grid-30 centered">
+      <h2>Sign Up</h2>
+      <form>
+        <input type="email" placeholder="Email Address" />
+        <input type="password" placeholder="Password" />
+        <input type="password" placeholder="Confirm Password" />
+        <button class="button-primary">Sign Up</button>
+        <a class="button" href="signin.html">Sign In</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}
