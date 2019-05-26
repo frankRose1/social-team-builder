@@ -2105,3 +2105,19 @@ input[type="email"].circle--input--h6, input[type="number"].circle--input--h6, i
 .logo:hover {
   box-shadow: 0 0 0 15px #fff inset;
 }
+
+.notification {
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.success {
+  background: #70DA8B;
+  color: #4DA463;
+}
+.error {
+  background: #FFE6B2;
+  color: #C5A14E;
+}

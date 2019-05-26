@@ -73,6 +73,17 @@
     </div>
   </header>
 
+  <!-- Flash Messages -->
+  {% if messages %}
+    <ul class="messages centered grid-50">
+      {% for message in messages %}
+        <li {% if message.tags %} class="notification {{ message.tags }}" {% endif %}>
+          {{ message }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   <!-- Page Content -->
   <div class="bounds circle--page">
     {% block content %}
