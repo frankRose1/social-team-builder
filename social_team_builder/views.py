@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -67,3 +68,9 @@ def sign_out(request):
         'You were successfully signed out. Come back soon!'
     )
     return HttpResponseRedirect(reverse('team_builder:home'))
+
+
+# the user should be able to create a profile and upload an image
+@login_required
+def create_user_profile(request):
+    pass
