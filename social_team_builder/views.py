@@ -8,6 +8,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from .models import UserProfile
+from .forms import ProfileForm
+
 # Create your views here.
 def index(request):
     return render(request, 'social_team_builder/index.html')
@@ -72,5 +75,29 @@ def sign_out(request):
 
 # the user should be able to create a profile and upload an image
 @login_required
-def create_user_profile(request):
+def edit_user_profile(request):
+    try:
+        profile = UserProfile.objects.get(user_id=request.user.id)
+        form = ProfileForm(instance=profile)
+    except UserProfile.DoesNotExist:
+        form = ProfileForm()
+
+    if request.method == 'POST':
+        form = ProfileForm(
+            instance=profile,
+            data=request.POST,
+            files=request.FILES
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Your profile has been updated!'
+            )
+            return HttpResponseRedirect(reverse('team_builder:user_profile', kwargs={'user_id': request.user.id }))
+    return render(request, 'social_team_builder/edit_profile.html' ,{'form': form})
+
+
+def user_profile(request, user_id):
+    """Gets a user's profile"""
     pass

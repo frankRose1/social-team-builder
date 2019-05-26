@@ -4,7 +4,17 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
     """A user can create a profile with their details, skills, and avatar"""
-    pass
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=255)
+    skills = last_name = models.CharField(max_length=255) # change this to represent multiple skills
+    avatar = models.ImageField(
+        blank=True,
+        null=True,
+        upload_to='avatars'
+    )
+
+    def __str__(self):
+        return self.full_name
 
 
 class Project(models.Model):
